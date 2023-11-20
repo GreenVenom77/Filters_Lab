@@ -1,6 +1,4 @@
 
-Y
-)Assets/Scripts/Phone_Camera_Controller.cs,e\d\ed2bd9705777c1c47eeeace7ca0a1ae042a15700
 Q
 !Assets/Scripts/Player/Movement.cs,8\1\81aa4247f8d18f3789c4bc2dcceea52f115dffe8
 ^
@@ -19,14 +17,10 @@ V
 &Assets/Scripts/Game/Filters_Control.cs,f\0\f021d3835551fb54d52a3f56c962f2eb30d5d9d3
 V
 &Assets/Scripts/Game/Game_UI_Manager.cs,b\e\be17b9a3cc19f7d24617d5bd5a67f91e3ff13590
-P
- Assets/Scripts/Game/Platforms.cs,2\e\2e8f591f9ecf2b80695ee754469acf2a840de388
 X
 (Assets/Scripts/Game/Filters_Platforms.cs,5\d\5d4ca5a5c5a6b70552123621fcb46e670bf237c3
 U
 %Assets/Scripts/Game/Extra_Platform.cs,1\b\1b9920fe0736a24d315620ce15860e92ceb6a03b
-U
-%Assets/Effects Pro/Scripts/Effects.cs,5\3\536e36a25b97c0055a85bf736c81ccd03319238a
 R
 "Assets/Scripts/Game/SceneLoader.cs,a\1\a1973419c314f9a6721728c86c5f1985b470ff0c
 Y
@@ -37,3 +31,5 @@ Z
 *Assets/Effects Pro/Shaders/Negative.shader,d\2\d2266f19401c1dc5759028c31ea7036491dd5a8a
 W
 'Assets/Effects Pro/Shaders/Sepia.shader,3\9\39e88f0e6708641879dd7249f90049ea7d19bdbc
+N
+Assets/Scripts/Game/Effects.cs,c\9\c926e3be1818eb14f3ab31c0f4a6ee8014f2908f

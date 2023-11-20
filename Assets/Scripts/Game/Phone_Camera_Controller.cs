@@ -27,6 +27,7 @@ public class Phone_Camera_Controller : MonoBehaviour
         Ground_Material = Ground.GetComponent<Renderer>().material;
         Player_Material = Player.GetComponent<Renderer>().material;
         Mobile_Camera = new WebCamTexture();
+        _Rotation = Ground.transform.eulerAngles;
         
         Switch_Material_Object(isDefault);
     }
