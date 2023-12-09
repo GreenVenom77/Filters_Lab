@@ -1,12 +1,8 @@
 
-Q
-!Assets/Scripts/Player/Movement.cs,8\1\81aa4247f8d18f3789c4bc2dcceea52f115dffe8
 ^
 .Assets/Scripts/Game/Phone_Camera_Controller.cs,c\d\cda539bd27ee516dfedf8d03ab7eea559efdc592
-Ž
-^Library/PackageCache/com.unity.inputsystem@1.5.1/InputSystem/Plugins/OnScreen/OnScreenStick.cs,8\7\875b185e1eac7cb671e969b7b1d7b003737cf544
 V
-&Assets/Scripts/Game/Filters_Control.cs,f\0\f021d3835551fb54d52a3f56c962f2eb30d5d9d3
+&Assets/Scripts/Game/Filters_Control.cs,f/0/f021d3835551fb54d52a3f56c962f2eb30d5d9d3
 V
 &Assets/Scripts/Game/Game_UI_Manager.cs,b\e\be17b9a3cc19f7d24617d5bd5a67f91e3ff13590
 X
@@ -19,3 +15,5 @@ Y
 )Assets/Scripts/Game/MainMenu_UI_Mnager.cs,1\3\13fabd5db23f317bd3392d27bb2c1abb00170943
 N
 Assets/Scripts/Game/Effects.cs,c\9\c926e3be1818eb14f3ab31c0f4a6ee8014f2908f
+Z
+*Assets/Scripts/Player/Player_Controller.cs,8/5/85ca58a4050fc471ade1a1bc9978bc5e139d2dba
