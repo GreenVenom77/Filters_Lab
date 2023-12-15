@@ -1,0 +1,21 @@
+                    -H/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary/src/main/cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=24
+-DANDROID_PLATFORM=android-24
+-DANDROID_ABI=armeabi-v7a
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DANDROID_NDK=/home/greenvenom77/Unity_Editors/2023.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK
+-DCMAKE_ANDROID_NDK=/home/greenvenom77/Unity_Editors/2023.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK
+-DCMAKE_TOOLCHAIN_FILE=/home/greenvenom77/Unity_Editors/2023.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/home/greenvenom77/Unity_Editors/2023.2.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/SDK/cmake/3.22.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary/build/intermediates/cxx/Debug/4d4c296k/obj/armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary/build/intermediates/cxx/Debug/4d4c296k/obj/armeabi-v7a
+-DCMAKE_BUILD_TYPE=Debug
+-DCMAKE_FIND_ROOT_PATH=/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/.utmp/Debug/4d4c296k/prefab/armeabi-v7a/prefab
+-B/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/.utmp/Debug/4d4c296k/armeabi-v7a
+-GNinja
+-DBUILD_GRADLE_DIRECTORY=/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary
+-DANDROID_STL=c++_shared
+                    Build command args: []
+                    Version: 2

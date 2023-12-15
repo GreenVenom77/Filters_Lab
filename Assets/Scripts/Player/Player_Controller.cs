@@ -36,6 +36,7 @@ public class Player_Controller : NetworkBehaviour
         else
         {
             GetComponent<Player_Controller>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
         }
     }
 
