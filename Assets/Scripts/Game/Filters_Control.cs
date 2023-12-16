@@ -1,7 +1,3 @@
-// License: https://en.wikipedia.org/wiki/MIT_License
-// The code in this script is written by Arnab Raha
-// Code may be redistributed in source form, provided all the comments at the top here are kept intact
-
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,79 +8,115 @@ public class Filters_Control : MonoBehaviour
 	public GameObject Filter_Strength;
 	public GameObject Con_Bri;
 
-	public Text str;				// effect strength shower Text
-	public Text contStr;			// contrast value
-	public Text brtStr;				// brightness value
+	public Text Filter_Strenght;	// effect strength shower Text
+	public Text Cont_Str;			// contrast value
+	public Text Brt_Str;				// brightness value
+	public Text Filter;
 
 	public Slider strength;			// effect strength controller
 	public Slider contrast;			// contrast controller
 	public Slider bright;			// brightness controller
 	
-	public Effects fx;
+	public Effects FX;
 	public AudioClip clip;
 	
 	private AudioSource _audioSource;
+	private int Filter_Index;
 
 	void Start()
 	{
 		_audioSource = GetComponent<AudioSource>();
-		//Original();
+		if (!FX)
+		{
+			FX = FindAnyObjectByType<Effects>();
+		}
 	}
 	
 	public void Original () {
-		fx.DisableFx ();
+		FX.DisableFx ();
 	}
 
 	public void Effect () {
-		fx.EnableFx ();
+		FX.EnableFx ();
 	}
 
 	public void ValueChange () {
-		fx.styleStrength = strength.value;
-		str.text = "Filter Strength : " + (strength.value * 100).ToString ("0");
+		FX.styleStrength = strength.value;
+		Filter_Strenght.text = "Filter Strength : " + (strength.value * 100).ToString ("0");
 	}
 
 	public void Contrast () {
-		fx.contrast = contrast.value;
-		contStr.text = "Contrast : " + contrast.value.ToString ("F2");
+		FX.contrast = contrast.value;
+		Cont_Str.text = "Contrast : " + contrast.value.ToString ("F2");
 	}
 
 	public void Bright () {
-		fx.brightness = bright.value;
-		brtStr.text = "Brightness : " + bright.value.ToString ("F2");
+		FX.brightness = bright.value;
+		Brt_Str.text = "Brightness : " + bright.value.ToString ("F2");
 	}
 
 	public void ToggleOn (bool Con_Bri_On) {
-		if (Con_Bri_On)
-		{
-			Con_Bri.SetActive(true);
-		}
-		else
+		if (!Con_Bri_On)
 		{
 			Con_Bri.SetActive(false);
 		}
-		fx.isCon_Bri_on = Con_Bri_On;
+		else
+		{
+			Con_Bri.SetActive(true);
+		}
+		FX.isCon_Bri_on = Con_Bri_On;
 		platform_sound();
 	}
 
-	public void SetEffect (int ind) {
+	public void SetEffect (int ind = 0) {
 		switch (ind) {
+			case 0:
+				Original();
+				Filter_Strength.SetActive(false);
+				Filter.text = "None";
+				break;
 			case 1:
-				fx.SetFx (Fx.greyscale);
+				Effect();
+				FX.SetFx (Fx.greyscale);
+				Filter_Strength.SetActive(true);
+				Filter.text = "GreyScale";
 				break;
 			case 2:
-				fx.SetFx (Fx.sepia);
+				Effect();
+				FX.SetFx (Fx.sepia);
+				Filter_Strength.SetActive(true);
+				Filter.text = "Sepia";
 				break;
 			case 3:
-				fx.SetFx (Fx.negative);
+				Effect();
+				FX.SetFx (Fx.negative);
+				Filter_Strength.SetActive(false);
+				Filter.text = "Negative";
 				break;
 		}
 		platform_sound();
-		Filter_Strength.SetActive(true);
 	}
 	
 	public void platform_sound()
 	{
 		_audioSource.PlayOneShot(clip);
-	} 
+	}
+
+	public void Next_Filter()
+	{
+		if (Filter_Index is >= 0 and < 3)
+		{
+			Filter_Index++;
+			SetEffect(Filter_Index);
+		}
+	}
+
+	public void Previous_Filter()
+	{
+		if (Filter_Index is <= 3 and > 1)
+		{
+			Filter_Index--;
+			SetEffect(Filter_Index);
+		}
+	}
 }

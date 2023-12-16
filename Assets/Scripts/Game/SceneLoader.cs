@@ -6,6 +6,7 @@ public class SceneLoader
     {
         MainMenu,
         Game,
+        Online_Game,
     }
    
     public static void Load(Scenes scene)

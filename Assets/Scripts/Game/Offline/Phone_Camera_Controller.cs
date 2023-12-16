@@ -73,14 +73,14 @@ public class Phone_Camera_Controller : MonoBehaviour
 
     public void Right()
     {
-        _Rotation.y += 90;
+        _Rotation.y -= 90;
         Ground.transform.rotation = Quaternion.Euler(0, _Rotation.y, 0);
         manager.Sfx_Btn_s();
     }
 
     public void Left()
     {
-        _Rotation.y -= 90;
+        _Rotation.y += 90;
         Ground.transform.rotation = Quaternion.Euler(0, _Rotation.y, 0);
         manager.Sfx_Btn_s();
     }

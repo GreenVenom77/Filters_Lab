@@ -10,9 +10,17 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
     private WebCamDevice[] Devices;
     private WebCamDevice Camera;
 
-    void Awake()
+    public override void OnStartClient()
     {
-        Collecting_cameras();
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            Collecting_cameras();
+        }
+        else
+        {
+            GetComponent<Online_Phone_Camera_Controller>().enabled = false;
+        }
     }
 
     private void Collecting_cameras()

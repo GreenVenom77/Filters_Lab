@@ -5,27 +5,55 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu_UI_Mnager : MonoBehaviour
 {
-    [SerializeField] GameObject Play_Btn;
-    [SerializeField] GameObject Exit_Btn;
+    [SerializeField] GameObject Main_Panel;
+    [SerializeField] GameObject Game_Panel;
+    [SerializeField] GameObject Settings_Panel;
     [SerializeField] AudioClip Btn_sfx;
     AudioSource audioSource;
 
-
-    private void Start()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
     
-    public void Play()
+    public void SinglePlayer()
     {
         SceneLoader.Load(SceneLoader.Scenes.Game);
+        Sfx_Btn_s();
+    }
+
+    public void MultiPlayer()
+    {
+        SceneLoader.Load(SceneLoader.Scenes.Online_Game);
+        Sfx_Btn_s();
+    }
+
+    public void Game()
+    {
+        Main_Panel.SetActive(false);
+        Game_Panel.SetActive(true);
+        Sfx_Btn_s();
+    }
+
+    public void Back()
+    {
+        Main_Panel.SetActive(true);
+        Game_Panel.SetActive(false);
+        Settings_Panel.SetActive(false);
+        Sfx_Btn_s();
+    }
+
+    public void Settings()
+    {
+        Main_Panel.SetActive(false);
+        Settings_Panel.SetActive(true);
         Sfx_Btn_s();
     }
     
     public void Exit()
     {
-        Application.Quit();
         Sfx_Btn_s();
+        Application.Quit();
     }
     
     void Sfx_Btn_s()

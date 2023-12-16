@@ -2,6 +2,9 @@
 using FishNet.Managing;
 using FishNet.Object;
 using System;
+using System.Collections.Generic;
+using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,6 +23,8 @@ namespace FishNet.Component.Spawning
         /// Called on the server when a player is spawned.
         /// </summary>
         public event Action<NetworkObject> OnSpawned;
+
+        public List<NetworkObject> players;
         #endregion
 
         #region Serialized.
