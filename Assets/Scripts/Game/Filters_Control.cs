@@ -29,6 +29,7 @@ public class Filters_Control : MonoBehaviour
 		if (!FX)
 		{
 			FX = Camera.main.GetComponent<Effects>();
+			SetEffect();
 		}
 	}
 	

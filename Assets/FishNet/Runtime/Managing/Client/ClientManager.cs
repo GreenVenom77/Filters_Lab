@@ -10,6 +10,7 @@ using FishNet.Transporting.Multipass;
 using GameKit.Utilities;
 using System;
 using System.Collections.Generic;
+using FishNet.Component.Spawning;
 using UnityEngine;
 
 namespace FishNet.Managing.Client
@@ -61,6 +62,7 @@ namespace FishNet.Managing.Client
         /// All currently connected clients. This field only contains data while ServerManager.ShareIds is enabled.
         /// </summary>
         public Dictionary<int, NetworkConnection> Clients = new Dictionary<int, NetworkConnection>();
+
         /// <summary>
         /// NetworkManager for client.
         /// </summary>

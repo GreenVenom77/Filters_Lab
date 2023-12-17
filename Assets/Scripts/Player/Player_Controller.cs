@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using FishNet.Component.Spawning;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FishNet.Connection;
@@ -17,6 +18,7 @@ public class Player_Controller : NetworkBehaviour
     private Input_Actions playerInput;
     private CharacterController characterController;
     private CinemachineVirtualCamera Player_VCam;
+    private PlayerSpawner _playerSpawner;
     
     //Parameters
     private Vector2 currentMovementInput;
@@ -38,6 +40,13 @@ public class Player_Controller : NetworkBehaviour
             GetComponent<Player_Controller>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
         }
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        _playerSpawner.players.RemoveAll(player => !player);
+
     }
 
     void Awake()

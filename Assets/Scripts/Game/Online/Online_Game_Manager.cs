@@ -3,40 +3,42 @@ using System.Collections.Generic;
 using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet;
 using UnityEngine;
 
-public class Online_Game_Manager : MonoBehaviour
+public class Online_Game_Manager : NetworkBehaviour
 {
     [SerializeField] private PlayerSpawner _playerSpawner;
-    public GameObject player;
+    [SerializeField] private AudioClip System_Clip;
     private Online_Connector _playerConnector;
-    private int Index;
-    private int Last_Index;
+    private AudioSource _audioSource;
 
-    void Awake()
+    public override void OnStartServer()
     {
-        StartCoroutine(StartCoroutineOnObjectAdded());
+        base.OnStartServer();
+        _audioSource = GetComponent<AudioSource>();
+        InvokeRepeating("Choose_Player", 0f, 8f);
     }
 
-    private IEnumerator StartCoroutineOnObjectAdded()
-    {
-        yield return new WaitUntil(() => _playerSpawner.players.Count > 0);
-        InvokeRepeating("Choose_Player", 0f, 10f);
-    }
-
+    [ServerRpc]
     public void Choose_Player()
     {
-        print("it works!!");
-        if (player)
+        if (_playerSpawner.players.Count > 0)
         {
+            // Disable UI for the previous player
+            if (!_playerConnector)
+            {
+                _playerConnector.EnableFX_UI();
+            }
+
+            // Choose a random player from the list
+            int index = Random.Range(0, _playerSpawner.players.Count);
+            GameObject selectedPlayer = _playerSpawner.players[index].gameObject;
+            _playerConnector = selectedPlayer.GetComponent<Online_Connector>();
+
+            // Play audio and enable UI for the selected player
+            _audioSource.PlayOneShot(System_Clip);
             _playerConnector.EnableFX_UI();
         }
-
-        Index = Random.Range(0, _playerSpawner.players.Count);
-        Last_Index = Index;
-        player = _playerSpawner.players[Index].gameObject;
-        _playerConnector = player.GetComponent<Online_Connector>();
-        _playerConnector.EnableFX_UI();
-
     }
 }

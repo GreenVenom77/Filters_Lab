@@ -1,22 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using FishNet.Component.Spawning;
-using FishNet.Object;
 using UnityEngine;
+using FishNet.Object;
 
-public class Online_Connector : MonoBehaviour
+public class Online_Connector : NetworkBehaviour
 {
-    [SerializeField] private GameObject _panel;
+    private Transform Main_Canvas;
+    private Transform Chosen_Player_Canvas;
+    private GameObject _panel;
 
-    public void EnableFX_UI()
+    public override void OnStartClient()
     {
-        if (_panel.activeSelf)
+        base.OnStartClient();
+        if (base.IsOwner)
         {
-            _panel.SetActive(false);
+            Main_Canvas = transform.Find("Canvas");
+            Chosen_Player_Canvas = Main_Canvas.Find("Chosen_Player_Canvas");
+            _panel = Chosen_Player_Canvas.gameObject;
         }
         else
         {
-            _panel.SetActive(true);
+            GetComponent<Online_Connector>().enabled = false;
         }
+    }
+
+    public void EnableFX_UI()
+    {
+        _panel.SetActive(!_panel.activeSelf);
     }
 }
