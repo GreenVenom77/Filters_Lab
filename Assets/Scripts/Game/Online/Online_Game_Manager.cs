@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class Online_Game_Manager : MonoBehaviour
 {
-    private PlayerSpawner _playerSpawner;
-    private GameObject player;
+    [SerializeField] private PlayerSpawner _playerSpawner;
+    public GameObject player;
     private Online_Connector _playerConnector;
     private int Index;
     private int Last_Index;
 
-    void Start()
+    void Awake()
     {
         StartCoroutine(StartCoroutineOnObjectAdded());
     }
@@ -26,23 +26,17 @@ public class Online_Game_Manager : MonoBehaviour
 
     public void Choose_Player()
     {
+        print("it works!!");
         if (player)
         {
             _playerConnector.EnableFX_UI();
         }
 
         Index = Random.Range(0, _playerSpawner.players.Count);
+        Last_Index = Index;
+        player = _playerSpawner.players[Index].gameObject;
+        _playerConnector = player.GetComponent<Online_Connector>();
+        _playerConnector.EnableFX_UI();
 
-        if (Index == Last_Index)
-        {
-            Choose_Player();
-        }
-        else
-        {
-            Last_Index = Index;
-            player = _playerSpawner.players[Index].gameObject;
-            _playerConnector = player.GetComponent<Online_Connector>();
-            _playerConnector.EnableFX_UI();
-        }
     }
 }

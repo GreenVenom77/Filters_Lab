@@ -8,9 +8,9 @@ public class Filters_Control : MonoBehaviour
 	public GameObject Filter_Strength;
 	public GameObject Con_Bri;
 
-	public Text Filter_Strenght;	// effect strength shower Text
+	public Text Filter_Strenght;	// effect strength value
 	public Text Cont_Str;			// contrast value
-	public Text Brt_Str;				// brightness value
+	public Text Brt_Str;			// brightness value
 	public Text Filter;
 
 	public Slider strength;			// effect strength controller
@@ -23,12 +23,12 @@ public class Filters_Control : MonoBehaviour
 	private AudioSource _audioSource;
 	private int Filter_Index;
 
-	void Start()
+	void Awake()
 	{
 		_audioSource = GetComponent<AudioSource>();
 		if (!FX)
 		{
-			FX = FindAnyObjectByType<Effects>();
+			FX = Camera.main.GetComponent<Effects>();
 		}
 	}
 	
@@ -113,7 +113,7 @@ public class Filters_Control : MonoBehaviour
 
 	public void Previous_Filter()
 	{
-		if (Filter_Index is <= 3 and > 1)
+		if (Filter_Index is <= 3 and >= 1)
 		{
 			Filter_Index--;
 			SetEffect(Filter_Index);

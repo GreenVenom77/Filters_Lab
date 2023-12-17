@@ -1,3 +1,5 @@
 # ninja log v5
 0	66	1702630460347399400	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	eda45914a012459d
 68	161	1702630460436685500	/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary/build/intermediates/cxx/Debug/4d4c296k/obj/armeabi-v7a/libswappywrapper.so	85003759cc16ebfd
+0	71	1702767248598997400	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	eda45914a012459d
+71	148	1702767248700761100	/hdd/Assets/Unity/Projects/Projects/Linux/ImageProcessing_Application/Library/PramData/AndroidApplicationController/Cache/com.GVBiteStudio.FiltersLab/gradle-project/unityLibrary/build/intermediates/cxx/Debug/4d4c296k/obj/armeabi-v7a/libswappywrapper.so	85003759cc16ebfd

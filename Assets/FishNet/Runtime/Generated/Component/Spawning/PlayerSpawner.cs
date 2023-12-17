@@ -111,6 +111,7 @@ namespace FishNet.Component.Spawning
                 _networkManager.SceneManager.AddOwnerToDefaultScene(nob);
 
             OnSpawned?.Invoke(nob);
+            players.Add(nob);
         }
 
 
