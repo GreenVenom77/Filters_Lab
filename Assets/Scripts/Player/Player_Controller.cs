@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -13,11 +12,11 @@ public class Player_Controller : NetworkBehaviour
     [Header("Variables")]
     [SerializeField] private float Speed = 2f;
     [SerializeField] private float rotationFactorPerFrame = 13f;
-    
+    [SerializeField] private CinemachineVirtualCamera Player_VCam;
+
     //Declares
     private Input_Actions playerInput;
     private CharacterController characterController;
-    private CinemachineVirtualCamera Player_VCam;
     private PlayerSpawner _playerSpawner;
     
     //Parameters
@@ -46,7 +45,6 @@ public class Player_Controller : NetworkBehaviour
     {
         base.OnStopClient();
         _playerSpawner.players.RemoveAll(player => !player);
-
     }
 
     void Awake()
@@ -67,30 +65,32 @@ public class Player_Controller : NetworkBehaviour
         characterController.SimpleMove(Physics.gravity);
     }
     
-    
     void MovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        currentMovement.z = currentMovementInput.y;
-        isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+        currentMovement = CalculateMoveDirection(currentMovementInput);
+        isMoving = currentMovementInput.sqrMagnitude > 0.01f;
     }
 
     void HandleRotation()
     {
-        Vector3 positionToLookAt;
-        positionToLookAt.x = currentMovement.x;
-        positionToLookAt.y = 0f;
-        positionToLookAt.z = currentMovement.z;
-
-        Quaternion currentRotation = transform.rotation;
-
         if (isMoving)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+
+            Vector3 targetDirection = Quaternion.FromToRotation(Vector3.forward, cameraForward) * currentMovement;
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
         }
+    }
+
+    Vector3 CalculateMoveDirection(Vector2 input)
+    {
+        Vector3 moveDirection = new Vector3(input.x, 0f, input.y);
+        return moveDirection.normalized;
     }
 
     private void OnEnable()

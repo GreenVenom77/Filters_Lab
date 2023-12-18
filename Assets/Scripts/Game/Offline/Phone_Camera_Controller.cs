@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Phone_Camera_Controller : MonoBehaviour
@@ -13,6 +14,7 @@ public class Phone_Camera_Controller : MonoBehaviour
     [SerializeField] private GameObject Turn_Right;
     [SerializeField] private GameObject Turn_Left;
     [SerializeField] private Game_UI_Manager manager;
+    [SerializeField] private Player_Controller _playerController;
     public WebCamTexture Mobile_Camera;
     
     //Privates
