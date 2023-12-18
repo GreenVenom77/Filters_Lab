@@ -29,6 +29,7 @@ public class Online_Game_Manager : NetworkBehaviour
             if (!_playerConnector)
             {
                 _playerConnector.EnableFX_UI();
+                Debug.Log("PlayerConnector");
             }
 
             // Choose a random player from the list

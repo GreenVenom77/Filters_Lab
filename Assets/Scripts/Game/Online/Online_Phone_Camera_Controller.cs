@@ -45,7 +45,6 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
         }
     }
 
-    [ObserversRpc]
     public void CameraTextureOnClients(WebCamTexture cameraTexture)
     {
         // This method is called on all clients, so set the texture on the local player's body
