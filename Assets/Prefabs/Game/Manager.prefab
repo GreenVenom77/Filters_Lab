@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112409467789902458}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2480900685880120203
 MonoBehaviour:
@@ -47,9 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36dff4494b72024398bbeb1a0673224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
   Ground: {fileID: 0}
   Player: {fileID: 0}
   Player_Vcam: {fileID: 0}
@@ -57,6 +54,7 @@ MonoBehaviour:
   Turn_Right: {fileID: 0}
   Turn_Left: {fileID: 0}
   manager: {fileID: 6771333893016299694}
+  _playerController: {fileID: 0}
   Mobile_Camera: {fileID: 0}
 --- !u!114 &6771333893016299694
 MonoBehaviour:
@@ -87,15 +85,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e4fa509e6b7304a9d6ea965f9825f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   Filter_Strength: {fileID: 0}
   Con_Bri: {fileID: 0}
-  str: {fileID: 0}
-  contStr: {fileID: 0}
-  brtStr: {fileID: 0}
+  Filter_Strenght: {fileID: 0}
+  Cont_Str: {fileID: 0}
+  Brt_Str: {fileID: 0}
+  Filter: {fileID: 0}
   strength: {fileID: 0}
   contrast: {fileID: 0}
   bright: {fileID: 0}
-  fx: {fileID: 0}
+  FX: {fileID: 0}
   clip: {fileID: 8300000, guid: d80b4c6b43eeb5249a82b33b7a72d860, type: 3}
 --- !u!82 &6123513031183169584
 AudioSource:
@@ -108,7 +110,6 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -31,7 +31,7 @@ public class Filters_Control : MonoBehaviour
 			SetEffect();
 		}
 	}
-	
+
 	public void Original () {
 		FX.DisableFx ();
 	}
@@ -96,7 +96,7 @@ public class Filters_Control : MonoBehaviour
 		}
 		platform_sound();
 	}
-	
+
 	public void platform_sound()
 	{
 		_audioSource.PlayOneShot(clip);

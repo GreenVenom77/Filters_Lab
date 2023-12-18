@@ -7,7 +7,7 @@ using FishNet.Object;
 public class Online_Phone_Camera_Controller : NetworkBehaviour
 {
     private GameObject Player_Body;
-    private WebCamTexture Mobile_Camera;
+    public WebCamTexture Mobile_Camera;
     private WebCamDevice[] Devices;
     private WebCamDevice Camera;
     private Material Body_Material;

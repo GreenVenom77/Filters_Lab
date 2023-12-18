@@ -5,7 +5,7 @@ public class Online_Connector : NetworkBehaviour
 {
     private Transform Main_Canvas;
     private Transform Chosen_Player_Canvas;
-    private GameObject _panel;
+    public GameObject _panel;
 
     public override void OnStartClient()
     {
@@ -22,8 +22,15 @@ public class Online_Connector : NetworkBehaviour
         }
     }
 
+    [ObserversRpc]
     public void EnableFX_UI()
     {
-        _panel.SetActive(!_panel.activeSelf);
+        _panel.SetActive(true);
+    }
+
+    [ObserversRpc]
+    public void DisableFX_UI()
+    {
+        _panel.SetActive(true);
     }
 }

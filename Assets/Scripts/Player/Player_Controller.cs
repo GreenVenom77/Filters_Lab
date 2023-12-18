@@ -54,10 +54,6 @@ public class Player_Controller : NetworkBehaviour
     {
         playerInput = new Input_Actions();
         characterController = GetComponent<CharacterController>();
-
-        //Player Actions
-     
-       
     }
     
     void Update()
