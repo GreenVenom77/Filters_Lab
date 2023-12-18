@@ -24,6 +24,9 @@ public class Player_Controller : NetworkBehaviour
     private Vector3 currentMovement;
     private bool isMoving;
 
+    public  bool isPlayerCam;
+    [SerializeField]
+    GameObject Player_Cam, Top_Cam;
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -53,45 +56,63 @@ public class Player_Controller : NetworkBehaviour
         characterController = GetComponent<CharacterController>();
 
         //Player Actions
-        playerInput.Player.Movement.started += MovementInput;
-        playerInput.Player.Movement.performed += MovementInput;
-        playerInput.Player.Movement.canceled += MovementInput;
+     
+       
     }
     
     void Update()
     {
+        if (!isPlayerCam)
+        {
+            playerInput.Player.Movement.started += MovementInput;
+            playerInput.Player.Movement.performed += MovementInput;
+            playerInput.Player.Movement.canceled += MovementInput;
+          
+        }
+        if (isPlayerCam)
+        {
+            playerInput.Player.Movement.started += MovementInputCam;
+            playerInput.Player.Movement.performed += MovementInputCam;
+            playerInput.Player.Movement.canceled += MovementInputCam;
+           
+        }
+
         HandleRotation();
         characterController.Move(currentMovement * (Speed * Time.deltaTime));
         characterController.SimpleMove(Physics.gravity);
     }
-    
+
     void MovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement = CalculateMoveDirection(currentMovementInput);
-        isMoving = currentMovementInput.sqrMagnitude > 0.01f;
+        currentMovement.x = currentMovementInput.x;
+        currentMovement.z = currentMovementInput.y;
+        isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
+    void MovementInputCam(InputAction.CallbackContext context)
+    {
+        currentMovementInput = context.ReadValue<Vector2>();
+        currentMovement.x = currentMovementInput.y;
+        currentMovement.z = currentMovementInput.x;
+        isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+    }
+
 
     void HandleRotation()
     {
+        Vector3 positionToLookAt = new Vector3(currentMovement.x, 0f, currentMovement.z);
+
+        Quaternion currentRotation = transform.rotation;
+
         if (isMoving)
         {
-            Vector3 cameraForward = Camera.main.transform.forward;
-            cameraForward.y = 0f;
-            cameraForward.Normalize();
+            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
 
-            Vector3 targetDirection = Quaternion.FromToRotation(Vector3.forward, cameraForward) * currentMovement;
-
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
         }
     }
 
-    Vector3 CalculateMoveDirection(Vector2 input)
-    {
-        Vector3 moveDirection = new Vector3(input.x, 0f, input.y);
-        return moveDirection.normalized;
-    }
+   
 
     private void OnEnable()
     {
@@ -102,4 +123,5 @@ public class Player_Controller : NetworkBehaviour
     {
         playerInput.Disable();
     }
+
 }
