@@ -6,21 +6,24 @@ using FishNet.Object;
 
 public class Online_Phone_Camera_Controller : NetworkBehaviour
 {
-    [SerializeField] private GameObject Player_Body;
+    private GameObject Player_Body;
     private WebCamTexture Mobile_Camera;
     private WebCamDevice[] Devices;
     private WebCamDevice Camera;
+    private Material Body_Material;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
         if (base.IsOwner)
         {
+            Player_Body = GameObject.Find("GFX");
+            Body_Material = Player_Body.GetComponent<Renderer>().material;
             Collecting_Cameras_Server();
         }
         else
         {
-            GetComponent<Online_Phone_Camera_Controller>().enabled = false;
+
         }
     }
 
@@ -47,7 +50,6 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
 
     public void CameraTextureOnClients(WebCamTexture cameraTexture)
     {
-        // This method is called on all clients, so set the texture on the local player's body
-        Player_Body.GetComponent<Renderer>().material.mainTexture = cameraTexture;
+        Body_Material.mainTexture = cameraTexture;
     }
 }

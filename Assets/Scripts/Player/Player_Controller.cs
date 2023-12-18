@@ -89,6 +89,7 @@ public class Player_Controller : NetworkBehaviour
         currentMovement.z = currentMovementInput.y;
         isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
+
     void MovementInputCam(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
@@ -111,8 +112,6 @@ public class Player_Controller : NetworkBehaviour
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
         }
     }
-
-   
 
     private void OnEnable()
     {

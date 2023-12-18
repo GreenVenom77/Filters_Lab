@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Object;
-using FishNet;
 using UnityEngine;
 
 public class Online_Game_Manager : NetworkBehaviour
@@ -13,20 +10,19 @@ public class Online_Game_Manager : NetworkBehaviour
     private Online_Connector _playerConnector;
     private AudioSource _audioSource;
 
-    public override void OnStartServer()
+    void Start()
     {
-        base.OnStartServer();
         _audioSource = GetComponent<AudioSource>();
-        InvokeRepeating("Choose_Player", 0f, 8f);
+        InvokeRepeating("Choose_Player_Server", 0f, 8f);
     }
 
     [ServerRpc]
-    public void Choose_Player()
+    public void Choose_Player_Server()
     {
         if (_playerSpawner.players.Count > 0)
         {
             // Disable UI for the previous player
-            if (!_playerConnector)
+            if (_playerConnector)
             {
                 _playerConnector.EnableFX_UI();
                 Debug.Log("PlayerConnector");
