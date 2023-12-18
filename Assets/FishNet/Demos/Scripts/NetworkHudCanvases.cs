@@ -1,6 +1,4 @@
-﻿using System;
-using FishNet.Component.Spawning;
-using FishNet.Managing;
+﻿using FishNet.Managing;
 using FishNet.Transporting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,9 +23,6 @@ namespace FishNet.Example
         #endregion
 
         #region Serialized.
-
-        [SerializeField] private PlayerSpawner _playerSpawner;
-
         /// <summary>
         /// What connections to automatically start on play.
         /// </summary>
@@ -227,13 +222,9 @@ namespace FishNet.Example
                 return;
 
             if (_clientState != LocalConnectionState.Stopped)
-            {
                 _networkManager.ClientManager.StopConnection();
-            }
             else
-            {
                 _networkManager.ClientManager.StartConnection();
-            }
 
             DeselectButtons();
         }
