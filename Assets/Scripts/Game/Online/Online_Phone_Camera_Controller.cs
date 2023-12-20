@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 public class Online_Phone_Camera_Controller : NetworkBehaviour
 {
-    private GameObject Player_Body;
+    public GameObject Player_Body;
     public WebCamTexture Mobile_Camera;
     private WebCamDevice[] Devices;
     private WebCamDevice Camera;
@@ -17,9 +16,9 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            Player_Body = GameObject.Find("GFX");
             Body_Material = Player_Body.GetComponent<Renderer>().material;
-            Collecting_Cameras_Server();
+            Devices = WebCamTexture.devices;
+            Invoke("Collecting_Cameras_Server", 0.5f);
         }
         else
         {
@@ -36,20 +35,14 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
     [ObserversRpc]
     public void Collecting_Cameras()
     {
-        Devices = WebCamTexture.devices;
         foreach (WebCamDevice camera in Devices)
         {
             if (camera.isFrontFacing)
             {
                 Mobile_Camera = new WebCamTexture(camera.name);
+                Body_Material.mainTexture = Mobile_Camera;
                 Mobile_Camera.Play();
-                CameraTextureOnClients(Mobile_Camera);
             }
         }
-    }
-
-    public void CameraTextureOnClients(WebCamTexture cameraTexture)
-    {
-        Body_Material.mainTexture = cameraTexture;
     }
 }

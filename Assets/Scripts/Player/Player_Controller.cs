@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using FishNet.Component.Spawning;
 using UnityEngine;
@@ -18,6 +16,7 @@ public class Player_Controller : NetworkBehaviour
     private Input_Actions playerInput;
     private CharacterController characterController;
     private PlayerSpawner _playerSpawner;
+    private Online_Game_Manager _onlineGameManager;
     
     //Parameters
     private Vector2 currentMovementInput;
@@ -33,6 +32,7 @@ public class Player_Controller : NetworkBehaviour
         if (base.IsOwner)
         {
             Player_VCam = GameObject.Find("Player Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+            _onlineGameManager = GameObject.Find("Game_Manager").GetComponent<Online_Game_Manager>();
             Player_VCam.Follow = transform;
             Player_VCam.LookAt = transform;
             GetComponentInChildren<Canvas>().enabled = true;
@@ -47,7 +47,7 @@ public class Player_Controller : NetworkBehaviour
     public override void OnStopClient()
     {
         base.OnStopClient();
-        _playerSpawner.players.RemoveAll(player => !player);
+        _onlineGameManager.Remove_Nulls_Server();
     }
 
     void Awake()

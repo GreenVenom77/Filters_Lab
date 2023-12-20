@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Net;
-using FishNet;
-using FishNet.Managing;
+using FishNet.Object;
 
-public class Online_Game_UI_Manager : MonoBehaviour
+public class Online_Game_UI_Manager : NetworkBehaviour
 {
     [SerializeField] GameObject Pause_Btn;
     [SerializeField] GameObject Pause_Menu;
@@ -23,7 +19,6 @@ public class Online_Game_UI_Manager : MonoBehaviour
     {
         Pause_Menu.SetActive(true);
         Pause_Btn.SetActive(false);
-        Time.timeScale = 0f;
         Sfx_Btn_s();
         cameraController.Mobile_Camera.Stop();
     }
@@ -38,14 +33,25 @@ public class Online_Game_UI_Manager : MonoBehaviour
 
     public void Home()
     {
-        //SceneLoader.Load(SceneLoader.Scenes.MainMenu);
-        InstanceFinder.ServerManager.Despawn(gameObject);
+        LeaveServerServerRpc();
         Sfx_Btn_s();
-        Application.Quit();
+        SceneLoader.Load(SceneLoader.Scenes.MainMenu);
     }
 
     public void Sfx_Btn_s()
     {
         audioSource.PlayOneShot(Btn_sfx);
+    }
+
+    [ServerRpc]
+    private void LeaveServerServerRpc()
+    {
+        LeaveServerClientRpc();
+    }
+
+    [ObserversRpc]
+    private void LeaveServerClientRpc()
+    {
+            Destroy(gameObject);
     }
 }

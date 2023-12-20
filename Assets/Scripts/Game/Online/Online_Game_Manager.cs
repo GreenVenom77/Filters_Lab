@@ -14,7 +14,19 @@ public class Online_Game_Manager : NetworkBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        InvokeRepeating("Choose_Player", 1f, 8f);
+        InvokeRepeating("Choose_Player", 3f, 8f);
+    }
+
+    [ServerRpc]
+    public void Choose_Player_Server()
+    {
+        Choose_Player();
+    }
+
+    [ServerRpc]
+    public void Remove_Nulls_Server()
+    {
+        Invoke("Remove_Nulls", 2f);
     }
 
     [ObserversRpc]
@@ -42,9 +54,9 @@ public class Online_Game_Manager : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
-    public void Choose_Player_Server()
+    [ObserversRpc]
+    public void Remove_Nulls()
     {
-        Choose_Player();
+        _playerSpawner.players.RemoveAll(player => !player);
     }
 }
