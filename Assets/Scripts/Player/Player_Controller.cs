@@ -1,5 +1,4 @@
 using Cinemachine;
-using FishNet.Component.Spawning;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FishNet.Connection;
@@ -15,27 +14,35 @@ public class Player_Controller : NetworkBehaviour
     //Declares
     private Input_Actions playerInput;
     private CharacterController characterController;
-    private PlayerSpawner _playerSpawner;
     private Online_Game_Manager _onlineGameManager;
     
     //Parameters
     private Vector2 currentMovementInput;
     private Vector3 currentMovement;
     private bool isMoving;
+    [HideInInspector] public bool isPlayerCam;
 
-    public  bool isPlayerCam;
-    [SerializeField]
-    GameObject Player_Cam, Top_Cam;
     public override void OnStartClient()
     {
         base.OnStartClient();
+        if(base.IsNetworked)
+        {
+            _onlineGameManager = FindObjectOfType<Online_Game_Manager>();
+            _onlineGameManager.SendListRequest(gameObject);
+        }
+
+        if(base.IsClient)
+        {
+            
+        }
+
         if (base.IsOwner)
         {
-            Player_VCam = GameObject.Find("Player Virtual Camera").GetComponent<CinemachineVirtualCamera>();
-            _onlineGameManager = GameObject.Find("Game_Manager").GetComponent<Online_Game_Manager>();
+            Player_VCam = FindObjectOfType<CinemachineVirtualCamera>();
             Player_VCam.Follow = transform;
             Player_VCam.LookAt = transform;
             GetComponentInChildren<Canvas>().enabled = true;
+            //_onlineGameManager.players.Add(gameObject);
         }
         else
         {
@@ -47,7 +54,11 @@ public class Player_Controller : NetworkBehaviour
     public override void OnStopClient()
     {
         base.OnStopClient();
-        _onlineGameManager.Remove_Nulls_Server();
+        if(base.IsNetworked)
+        {
+            _onlineGameManager.players.Remove(gameObject);
+            //_onlineGameManager.SendListRequest(gameObject);
+        }
     }
 
     void Awake()
@@ -58,20 +69,9 @@ public class Player_Controller : NetworkBehaviour
     
     void Update()
     {
-        if (!isPlayerCam)
-        {
-            playerInput.Player.Movement.started += MovementInput;
-            playerInput.Player.Movement.performed += MovementInput;
-            playerInput.Player.Movement.canceled += MovementInput;
-          
-        }
-        if (isPlayerCam)
-        {
-            playerInput.Player.Movement.started += MovementInputCam;
-            playerInput.Player.Movement.performed += MovementInputCam;
-            playerInput.Player.Movement.canceled += MovementInputCam;
-           
-        }
+        playerInput.Player.Movement.started += MovementInput;
+        playerInput.Player.Movement.performed += MovementInput;
+        playerInput.Player.Movement.canceled += MovementInput;
 
         HandleRotation();
         characterController.Move(currentMovement * (Speed * Time.deltaTime));
@@ -85,15 +85,6 @@ public class Player_Controller : NetworkBehaviour
         currentMovement.z = currentMovementInput.y;
         isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
-
-    void MovementInputCam(InputAction.CallbackContext context)
-    {
-        currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.y;
-        currentMovement.z = currentMovementInput.x;
-        isMoving = currentMovementInput.x != 0 || currentMovementInput.y != 0;
-    }
-
 
     void HandleRotation()
     {

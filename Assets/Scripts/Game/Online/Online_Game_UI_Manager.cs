@@ -1,18 +1,22 @@
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Example;
 
 public class Online_Game_UI_Manager : NetworkBehaviour
 {
-    [SerializeField] GameObject Pause_Btn;
-    [SerializeField] GameObject Pause_Menu;
-    [SerializeField] AudioClip Btn_sfx;
+    [SerializeField] private GameObject Pause_Btn;
+    [SerializeField] private GameObject Pause_Menu;
+    [SerializeField] private AudioClip Btn_sfx;
     private AudioSource audioSource;
     private Online_Phone_Camera_Controller cameraController;
+    private NetworkHudCanvases networkHud;
     
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         cameraController = GetComponent<Online_Phone_Camera_Controller>();
+        networkHud = new NetworkHudCanvases();
+
     }
 
     public void Pause()
@@ -33,25 +37,20 @@ public class Online_Game_UI_Manager : NetworkBehaviour
 
     public void Home()
     {
-        LeaveServerServerRpc();
         Sfx_Btn_s();
+        if(base.IsServer)
+        {
+            networkHud.OnClick_Server();
+        }
+        else
+        {
+            networkHud.OnClick_Client();
+        }
         SceneLoader.Load(SceneLoader.Scenes.MainMenu);
     }
 
     public void Sfx_Btn_s()
     {
         audioSource.PlayOneShot(Btn_sfx);
-    }
-
-    [ServerRpc]
-    private void LeaveServerServerRpc()
-    {
-        LeaveServerClientRpc();
-    }
-
-    [ObserversRpc]
-    private void LeaveServerClientRpc()
-    {
-            Destroy(gameObject);
     }
 }

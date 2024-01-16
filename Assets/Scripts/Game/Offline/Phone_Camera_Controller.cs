@@ -23,14 +23,15 @@ public class Phone_Camera_Controller : MonoBehaviour
     private Material Player_Material;
     private Vector3 _Rotation;
     private bool isDefault = true;
-    Player_Controller player_Controller;
+    private Player_Controller player_Controller;
+    
     void Awake ()
     {
         Ground_Material = Ground.GetComponent<Renderer>().material;
         Player_Material = Player.GetComponent<Renderer>().material;
         Mobile_Camera = new WebCamTexture();
         _Rotation = Ground.transform.eulerAngles;
-        player_Controller = FindObjectOfType<Player_Controller>();
+        player_Controller = GetComponent<Player_Controller>();
         Switch_Material_Object(isDefault);
     }
 
@@ -71,7 +72,7 @@ public class Phone_Camera_Controller : MonoBehaviour
             World_Vcam.SetActive(false);
             Turn_Right.SetActive(false);
             Turn_Left.SetActive(false);
-            player_Controller.isPlayerCam =false;
+            player_Controller.isPlayerCam = false;
 
         }
     }

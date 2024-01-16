@@ -3019,8 +3019,6 @@ MonoBehaviour:
   rotationFactorPerFrame: 13
   Player_VCam: {fileID: 0}
   isPlayerCam: 0
-  Player_Cam: {fileID: 0}
-  Top_Cam: {fileID: 0}
 --- !u!114 &2782205032548902400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3079,7 +3077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 2
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -3148,7 +3146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overrideType: 3
+  _overrideType: 2
   _updateHostVisibility: 1
   _observerConditions: []
 --- !u!1 &7672475666617194038

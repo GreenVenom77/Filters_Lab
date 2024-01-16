@@ -21,8 +21,6 @@ namespace FishNet.Component.Spawning
         /// Called on the server when a player is spawned.
         /// </summary>
         public event Action<NetworkObject> OnSpawned;
-
-        public List<NetworkObject> players;
         #endregion
 
         #region Serialized.
@@ -109,7 +107,6 @@ namespace FishNet.Component.Spawning
                 _networkManager.SceneManager.AddOwnerToDefaultScene(nob);
 
             OnSpawned?.Invoke(nob);
-            players.Add(nob);
         }
 
 

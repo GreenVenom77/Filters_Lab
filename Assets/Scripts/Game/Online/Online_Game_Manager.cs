@@ -1,12 +1,12 @@
-using FishNet.Component.Spawning;
+using System.Collections.Generic;
 using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
 public class Online_Game_Manager : NetworkBehaviour
 {
-    [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private AudioClip System_Clip;
+    public List<GameObject> players;
     private Online_Connector _playerConnected;
     private Online_Connector _lastPlayer;
     private AudioSource _audioSource;
@@ -24,30 +24,31 @@ public class Online_Game_Manager : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void Remove_Nulls_Server()
+    public void SendListRequest_Server(GameObject player)
     {
-        Invoke("Remove_Nulls", 2f);
+        Debug.Log("Recieved Request!!");
+        SendListRequest(player);
     }
 
     [ObserversRpc]
     public void Choose_Player()
     {
         print("start function");
-        if (_playerSpawner.players.Count > 0)
+        if (players.Count > 0)
         {
             print("start looking");
             if (_playerConnected)
             {
                 _lastPlayer = _playerConnected;
+                _lastPlayer.DisableFX_UI();
             }
             
-            int index = Random.Range(0, _playerSpawner.players.Count);
-            print(_playerSpawner.players.Count);
-            GameObject selectedPlayer = _playerSpawner.players[index].gameObject;
+            int index = Random.Range(0, players.Count);
+            print(players.Count);
+            GameObject selectedPlayer = players[index].gameObject;
             _playerConnected = selectedPlayer.GetComponent<Online_Connector>();
             print(index);
 
-            _lastPlayer.DisableFX_UI();
             _playerConnected.EnableFX_UI();
             _audioSource.PlayOneShot(System_Clip);
             Debug.Log(_playerConnected.gameObject);
@@ -55,8 +56,10 @@ public class Online_Game_Manager : NetworkBehaviour
     }
 
     [ObserversRpc]
-    public void Remove_Nulls()
+    public void SendListRequest(GameObject player)
     {
-        _playerSpawner.players.RemoveAll(player => !player);
+        Debug.Log("Doing the Request!!");
+        players.Add(player);
+        Debug.Log("Joined!!");
     }
 }

@@ -508,9 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae666e56be233c489d96c44aed8c8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
   isCon_Bri_on: 1
   contrast: 0
   brightness: 0
