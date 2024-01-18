@@ -5,30 +5,20 @@ using UnityEngine;
 
 public class Online_Game_Manager : NetworkBehaviour
 {
+    [SerializeField] private float firstPlayerTimer = 4f;
+    [SerializeField] private float nextPlayerTimer = 8f;
     [SerializeField] private AudioClip System_Clip;
     public List<GameObject> players;
     private Online_Connector _playerConnected;
     private Online_Connector _lastPlayer;
     private AudioSource _audioSource;
 
-    void Start()
+    void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        InvokeRepeating("Choose_Player", 3f, 8f);
+        InvokeRepeating(nameof(Choose_Player), firstPlayerTimer, nextPlayerTimer);
     }
-
-    [ServerRpc]
-    public void Choose_Player_Server()
-    {
-        Choose_Player();
-    }
-
-    [ServerRpc]
-    public void SendListRequest_Server(GameObject player)
-    {
-        Debug.Log("Recieved Request!!");
-        SendListRequest(player);
-    }
+    
 
     [ObserversRpc]
     public void Choose_Player()
@@ -40,7 +30,7 @@ public class Online_Game_Manager : NetworkBehaviour
             if (_playerConnected)
             {
                 _lastPlayer = _playerConnected;
-                _lastPlayer.DisableFX_UI();
+                _lastPlayer.FiltersUI_Request();
             }
             
             int index = Random.Range(0, players.Count);
@@ -49,17 +39,9 @@ public class Online_Game_Manager : NetworkBehaviour
             _playerConnected = selectedPlayer.GetComponent<Online_Connector>();
             print(index);
 
-            _playerConnected.EnableFX_UI();
+            _playerConnected.FiltersUI_Request();
             _audioSource.PlayOneShot(System_Clip);
             Debug.Log(_playerConnected.gameObject);
         }
-    }
-
-    [ObserversRpc]
-    public void SendListRequest(GameObject player)
-    {
-        Debug.Log("Doing the Request!!");
-        players.Add(player);
-        Debug.Log("Joined!!");
     }
 }

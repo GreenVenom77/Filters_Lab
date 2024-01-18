@@ -8,13 +8,13 @@ public class Online_Game_UI_Manager : NetworkBehaviour
     [SerializeField] private GameObject Pause_Menu;
     [SerializeField] private AudioClip Btn_sfx;
     private AudioSource audioSource;
-    private Online_Phone_Camera_Controller cameraController;
-    private NetworkHudCanvases networkHud;
+    public Online_Phone_Camera_Controller cameraController;
+    public NetworkHudCanvases networkHud;
     
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        cameraController = GetComponent<Online_Phone_Camera_Controller>();
+        cameraController = GetComponentInParent<Online_Phone_Camera_Controller>();
         networkHud = new NetworkHudCanvases();
 
     }
@@ -38,12 +38,15 @@ public class Online_Game_UI_Manager : NetworkBehaviour
     public void Home()
     {
         Sfx_Btn_s();
+        cameraController.Mobile_Camera.Stop();
         if(base.IsServer)
         {
+            Debug.Log("Server");
             networkHud.OnClick_Server();
         }
         else
         {
+            Debug.Log("Client");
             networkHud.OnClick_Client();
         }
         SceneLoader.Load(SceneLoader.Scenes.MainMenu);

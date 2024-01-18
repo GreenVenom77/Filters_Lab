@@ -20,44 +20,21 @@ public class Player_Controller : NetworkBehaviour
     private Vector2 currentMovementInput;
     private Vector3 currentMovement;
     private bool isMoving;
-    [HideInInspector] public bool isPlayerCam;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if(base.IsNetworked)
-        {
-            _onlineGameManager = FindObjectOfType<Online_Game_Manager>();
-            _onlineGameManager.SendListRequest(gameObject);
-        }
-
-        if(base.IsClient)
-        {
-            
-        }
-
         if (base.IsOwner)
         {
             Player_VCam = FindObjectOfType<CinemachineVirtualCamera>();
             Player_VCam.Follow = transform;
             Player_VCam.LookAt = transform;
             GetComponentInChildren<Canvas>().enabled = true;
-            //_onlineGameManager.players.Add(gameObject);
         }
         else
         {
             GetComponent<Player_Controller>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-        }
-    }
-
-    public override void OnStopClient()
-    {
-        base.OnStopClient();
-        if(base.IsNetworked)
-        {
-            _onlineGameManager.players.Remove(gameObject);
-            //_onlineGameManager.SendListRequest(gameObject);
         }
     }
 

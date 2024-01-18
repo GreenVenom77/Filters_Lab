@@ -1,28 +1,64 @@
 using UnityEngine;
 using FishNet.Object;
+using System.Collections.Generic;
 
 public class Online_Connector : NetworkBehaviour
 {
-    public GameObject _panel;
+    [SerializeField] private GameObject _panel;
+    public Online_Game_Manager _onlineGameManager;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (!base.IsOwner)
-        {
+        _onlineGameManager = FindObjectOfType<Online_Game_Manager>();
 
+        if (base.IsOwner)
+        {
+            SendListRequest_Server();
         }
     }
 
-    [ObserversRpc]
-    public void EnableFX_UI()
+    public override void OnStopClient()
     {
-        _panel.SetActive(true);
+        base.OnStopClient();
+
+        _onlineGameManager.players.Remove(gameObject);
+        Debug.Log($"The Player {gameObject} has Left!!");
+
+        if(base.IsOwner)
+        {
+            
+        }
+    }
+
+    [ServerRpc]
+    public void SendListRequest_Server()
+    {
+        Debug.Log("Recieved Request!!");
+        SendListRequest();
     }
 
     [ObserversRpc]
-    public void DisableFX_UI()
+    public void SendListRequest()
     {
-        _panel.SetActive(false);
+        Debug.Log("Doing the Request!!");
+
+        _onlineGameManager.players.Add(gameObject);
+        Debug.Log($"The Player {gameObject} has Joined!!");
+    }
+
+    [ObserversRpc]
+    public void FiltersUI_Request()
+    {
+        if(_panel.activeSelf == false)
+        {
+            _panel.SetActive(true);
+            Debug.Log("UI has been activated");
+        }
+        else
+        {
+            _panel.SetActive(false);
+            Debug.Log("UI has been Deactivated");
+        }
     }
 }

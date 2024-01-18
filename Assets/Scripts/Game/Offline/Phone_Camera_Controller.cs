@@ -64,7 +64,6 @@ public class Phone_Camera_Controller : MonoBehaviour
             World_Vcam.SetActive(true);
             Turn_Right.SetActive(true);
             Turn_Left.SetActive(true);
-            player_Controller.isPlayerCam = true;
         }
         else
         {
@@ -72,7 +71,6 @@ public class Phone_Camera_Controller : MonoBehaviour
             World_Vcam.SetActive(false);
             Turn_Right.SetActive(false);
             Turn_Left.SetActive(false);
-            player_Controller.isPlayerCam = false;
 
         }
     }
