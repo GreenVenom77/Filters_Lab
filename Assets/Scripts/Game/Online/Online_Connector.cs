@@ -24,11 +24,6 @@ public class Online_Connector : NetworkBehaviour
 
         _onlineGameManager.players.Remove(gameObject);
         Debug.Log($"The Player {gameObject} has Left!!");
-
-        if(base.IsOwner)
-        {
-            
-        }
     }
 
     [ServerRpc]
