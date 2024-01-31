@@ -12,10 +12,14 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
+        if(base.IsOwner)
         {
-            Collecting_Cameras();
+            Devices = WebCamTexture.devices;
+            Body_Material = Player_Body.GetComponent<Renderer>().material;
+
         }
+
+        Collecting_Cameras_Server();
     }
 
     public override void OnStopClient()
@@ -24,18 +28,15 @@ public class Online_Phone_Camera_Controller : NetworkBehaviour
         Mobile_Camera.Stop();
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void Collecting_Cameras_Server()
     {
         Collecting_Cameras();
     }
 
-    [ObserversRpc]
+    [ObserversRpc(BufferLast = true)]
     public void Collecting_Cameras()
     {
-        Body_Material = Player_Body.GetComponent<Renderer>().material;
-        Devices = WebCamTexture.devices;
-
         foreach (WebCamDevice camera in Devices)
         {
             if(camera.isFrontFacing)

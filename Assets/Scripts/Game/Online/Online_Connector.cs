@@ -33,7 +33,7 @@ public class Online_Connector : NetworkBehaviour
         SendListRequest();
     }
 
-    [ObserversRpc]
+    [ObserversRpc(BufferLast = true)]
     public void SendListRequest()
     {
         Debug.Log("Doing the Request!!");
