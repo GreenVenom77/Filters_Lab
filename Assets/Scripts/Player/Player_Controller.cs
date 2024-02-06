@@ -1,7 +1,5 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using FishNet.Connection;
 using FishNet.Object;
 
@@ -10,16 +8,17 @@ public class Player_Controller : NetworkBehaviour
     [Header("Variables")]
     [SerializeField] private float Speed = 2f;
     [SerializeField] private float rotationFactorPerFrame = 13f;
-    public CinemachineVirtualCamera Player_VCam;
-
-    //Declares
-    private Input_Actions playerInput;
-    private CharacterController characterController;
-    
-    //Parameters
     private Vector2 currentMovementInput;
     private Vector3 movementDirection;
     private bool isMoving;
+    
+
+    [Header("Declarations")]
+    private Input_Actions playerInput;
+    private CharacterController characterController;
+    private TouchScreen_Controller touchScreen;
+    private CinemachineVirtualCamera Player_VCam;
+    
 
     public override void OnStartClient()
     {
@@ -30,11 +29,14 @@ public class Player_Controller : NetworkBehaviour
             Player_VCam.Follow = transform;
             Player_VCam.LookAt = transform;
             GetComponentInChildren<Canvas>().enabled = true;
+            touchScreen = GetComponentInChildren<TouchScreen_Controller>();
+            touchScreen.VCamOrbital = Player_VCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         }
         else
         {
             GetComponent<Player_Controller>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
+            GetComponentInChildren<TouchScreen_Controller>().enabled = false;
         }
     }
 

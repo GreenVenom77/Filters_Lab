@@ -3358,6 +3358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9276706ee5f0a01a4d1fbac5660555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player_Controller: {fileID: 8753280765029417934}
+  VCamOrbital: {fileID: 0}
+  camControlArea: {fileID: 5664375055398130989}
 --- !u!1 &8636470169503359454
 GameObject:
   m_ObjectHideFlags: 0

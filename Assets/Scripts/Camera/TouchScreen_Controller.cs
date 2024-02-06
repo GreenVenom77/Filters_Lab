@@ -5,17 +5,11 @@ using UnityEngine.UI;
 
 public class TouchScreen_Controller : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    private CinemachineOrbitalTransposer VCamOrbital;
-    private Player_Controller Player_Controller;
-    private Image camControlArea;
+    [SerializeField] private Player_Controller Player_Controller;
+    public CinemachineOrbitalTransposer VCamOrbital;
+    public Image camControlArea;
     private string inputAxis = "Mouse X";
-
-    void Start()
-    {
-        Player_Controller = GetComponentInParent<Player_Controller>();
-        VCamOrbital = Player_Controller.Player_VCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
-        camControlArea = GetComponent<Image>();
-    }
+    
 
     public void OnDrag(PointerEventData eventData)
     {
